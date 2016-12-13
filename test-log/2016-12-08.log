@@ -1,0 +1,3 @@
+Thu, 08 Dec 2016 15:36:58 testsuit_interface_sample.py[line:40] DEBUG This is debug message
+Thu, 08 Dec 2016 15:36:58 testsuit_interface_sample.py[line:41] INFO This is info message
+Thu, 08 Dec 2016 15:36:58 testsuit_interface_sample.py[line:42] WARNING This is warning message

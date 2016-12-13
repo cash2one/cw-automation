@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<project name="ant-jmeter-test" default="run" basedir=".">  
+    <!-- <project name="ant-jmeter" default="all"> -->  
+    <tstamp>  
+	    <format property="time" pattern="yyyyMMddhhmm" />
+    </tstamp>  
+	<property environment="env"/>
+    <!-- set jmeter home-->    
+    <property name="jmeter.home" value="/var/lib/jenkins/workspace/test-interface-jmeter-all/apache-jmeter/apache-jmeter-2.13" />
+    <!-- jmeter test report jtl-->   
+    <property name="jmeter.result.jtl.dir" value="${jmeter.home}/results/jtl" />  
+    <!-- jmeter set report html-->  
+    <property name="jmeter.result.html.dir" value="${jmeter.home}/results/html" />  
+    <!-- setting test env-->    
+    <property name="ReportName" value="TestReport" />  
+    <property name="jmeter.result.jtlName" value="${jmeter.result.jtl.dir}/${ReportName}${time}.jtl" />  
+    <property name="jmeter.result.htmlName" value="${jmeter.result.html.dir}/${ReportName}${time}.html" />  
+    <target name="run">  
+        <antcall target="test" />  
+        <antcall target="report" />  
+    </target>  
+    <target name="test">  
+        <taskdef name="jmeter" classname="org.programmerplanet.ant.taskdefs.jmeter.JMeterTask" />  
+        <jmeter jmeterhome="${jmeter.home}" resultlog="${jmeter.result.jtlName}">  
+             <!-- setting test sctipts for jmeter-->  
+			<testplans dir="${jmeter.home}/test/jmeter" includes="*.jmx" />
+			<property name="jmeter.save.saveservice.output_format" value="xml"/>
+        </jmeter>  
+    </target>  
+    <!-- setting jmeter test report some ant lib package-->  
+    <path id="xslt.classpath">  <!-- jar package-->  
+        <fileset dir="${jmeter.home}\lib" includes="xalan*.jar"/>  
+        <fileset dir="${jmeter.home}\lib" includes="serializer*.jar"/>  
+    </path>  
+    <!-- setting jmeter test report-->      
+    <target name="report">  
+        <tstamp> <format property="report.datestamp" pattern="yyyy/MM/dd HH:mm:ss" /></tstamp>  
+        <xslt   
+              classpathref="xslt.classpath"    
+              force="true"  
+              in="${jmeter.result.jtlName}"  
+              out="${jmeter.result.htmlName}"  
+              style="${jmeter.home}\extras\jmeter-results-detail-report_21.xsl">  
+			  <param name="showData" expression="${show-data}"/>
+              <param name="dateReport" expression="${report.datestamp}"/>  
+       </xslt>  
+    </target> 
+    <copy todir="${jmeter.result.html.dir}">
+          <fileset dir="${jmeter.home}/extras">
+              <include name="collapse.png" />
+              <include name="expand.png" />
+          </fileset>
+    </copy> 
+</project>  
