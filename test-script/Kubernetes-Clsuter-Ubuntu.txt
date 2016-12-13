@@ -1,0 +1,309 @@
+/opt/bin/flanneld --etcd-endpoints="http://192.168.15.114:4001" -iface=ens160 & 
+source /run/flannel/subnet.env 
+ifconfig docker0 ${FLANNEL_SUBNET} 
+/usr/bin/dockerd --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU} & 
+/opt/bin/kubelet --address=0.0.0.0 --port=10250 --api_servers=http://192.168.15.114:8080 --enable_server=true --v=0 & 
+/opt/bin/kube-proxy --master=http://192.168.15.114:8080 --v=0 &
+
+
+
+################################################
+
+Master Kubernetes 
+
+    2  apt-get install ntpdate
+    3  apt-get install telnet 
+    4  apt-get install lrzsz 
+    5  apt-get -y install lrzsz curl wget dstat vim 
+    6  apt-get -y install lrzsz curl wget dstat vim tree
+    7  apt-get update
+    8  apt-get -y install ntpdate
+    9  crontab -e
+   10  crontab -l
+   11  /usr/sbin/ntpdate  cn.pool.ntp.org
+   12  date
+   13  cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime 
+   14  /usr/sbin/ntpdate  cn.pool.ntp.org
+   15  hostname
+   16  ip add
+   17  echo 192.168.15.114 > /etc/hostname 
+   18  hostname 192.168.15.114
+   19  exit
+   20  cp /etc/apt/{sources.list,sources.list.bak}
+   21  vim /etc/apt/sources.list
+   22  apt-get clean
+   23  apt-get update
+   24  apt-get -y install lrzsz curl wget dstat vim tree
+   25  apt-get -y install lrzsz curl wget dstat vim tree git
+   26  uname -r
+   27  apt-get -y install apt-transport-https ca-certificates
+   28  apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+   29  echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" | sudo tee /etc/apt/sources.list.d/docker.list
+   30  apt-get update
+   31  apt-cache policy docker-engine
+   32  apt-get -y install linux-image-extra-$(uname -r) linux-image-extra-virtual
+   33  apt-cache madison docker-engine
+   34  apt-get -y install linux-image-extra-$(uname -r) linux-image-extra-virtual
+   35  apt-get -y install docker-engine
+   36  ifconfig
+   37  apt-get -y upgrade docker-engine
+   38  exit
+   39  /opt/bin/etcd --data-dir '/opt/data/etcd' --listen-peer-urls 'http://0.0.0.0:2380,http://0.0.0.0:7001' --listen-client-urls 'http://0.0.0.0:2379,http://0.0.0.0:4001' --initial-advertise-peer-urls 'http://0.0.0.0:2380,http://0.0.0.0:7001' --initial-cluster 'default=http://0.0.0.0:2380,default=http://0.0.0.0:7001' --advertise-client-urls 'http://0.0.0.0:2379,http://0.0.0.0:4001' &
+   40  ps -ef|grep etcd
+   41  ip add
+   42  /opt/bin/etcdctl set /coreos.com/network/config '{"Network":"172.16.0.0/16"}'
+   43  ifconfig
+   44  /opt/bin/flanneld --etcd-endpoints="http://127.0.0.1:4001" -iface=ens160 &
+   45  cat /run/flannel/subnet.env
+   46  source /run/flannel/subnet.env
+   47  ifconfig docker0 ${FLANNEL_SUBNET}
+   48  /usr/bin/dockerd --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU} &
+   49  docker ps
+   50  exit
+   51  /opt/bin/kube-apiserver --address=0.0.0.0 --port=8080 --etcd_servers=http://127.0.0.1:4001 --portal_net=172.16.1.0/24 --allow_privileged=false --kubelet_port=10250 --v=0  &
+   52  /opt/bin/kube-controller-manager --address=0.0.0.0 --master=127.0.0.1:8080  --v=0 &
+   53  /opt/bin/kube-scheduler --address=0.0.0.0 --master=127.0.0.1:8080 --v=0 &
+   54  ps -ef|grep kube
+   55  history 
+   56  ip add
+   57  /opt/bin/kubectl get nodese
+   58  /opt/bin/kubectl get nodes
+   59  /opt/bin/kubectl get config view
+   60  /opt/bin/kubectl get nodes
+   61  history
+   62  ifconfig
+   63  /usr/bin/dockerd --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU} &
+   64  source /run/flannel/subnet.env
+   65  /opt/bin/etcd --data-dir '/opt/data/etcd' --listen-peer-urls 'http://0.0.0.0:2380,http://0.0.0.0:7001' --listen-client-urls 'http://0.0.0.0:2379,http://0.0.0.0:4001' --initial-advertise-peer-urls 'http://0.0.0.0:2380,http://0.0.0.0:7001' --initial-cluster 'default=http://0.0.0.0:2380,default=http://0.0.0.0:7001' --advertise-client-urls 'http://0.0.0.0:2379,http://0.0.0.0:4001' &
+   66  history
+   67  /opt/bin/etcdctl set /coreos.com/network/config '{"Network":"172.16.0.0/16"}'
+   68  /opt/bin/flanneld --etcd-endpoints="http://127.0.0.1:4001" -iface=ens160 &
+   69  cat /run/flannel/subnet.env
+   70  source /run/flannel/subnet.env
+   71  ifconfig docker0 ${FLANNEL_SUBNET}
+   72  /usr/bin/dockerd --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU} &
+   73  rm -f /var/run/docker.pid
+   74  /usr/bin/dockerd --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU} &
+   75  ps -ef|grep docker
+   76  kill -9 1208
+   77  ps -ef|grep docker
+   78  kill -9 1058
+   79  ps -ef|grep docker
+   80  rm /var/run/docker.sock 
+   81  /usr/bin/dockerd --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU} &
+   82  docker ps 
+   83  history 
+   84  /opt/bin/kube-apiserver --address=0.0.0.0 --port=8080 --etcd_servers=http://127.0.0.1:4001 --portal_net=172.16.1.0/24 --allow_privileged=false --kubelet_port=10250 --v=0  &
+   85  history 
+   86  /opt/bin/kube-controller-manager --address=0.0.0.0 --master=127.0.0.1:8080  --v=0 &
+   87  history 
+   88  /opt/bin/kube-controller-manager --address=0.0.0.0 --master=127.0.0.1:8080  --v=0 &
+   89  ps -ef|grep kube
+   90  history 
+   91  /opt/bin/kube-scheduler --address=0.0.0.0 --master=127.0.0.1:8080 --v=0 &
+   92  ps -ef|grep scheduler
+   93  kill -9 1790
+   94  ps -ef|grep scheduler
+   95  /opt/bin/kube-scheduler --address=0.0.0.0 --master=127.0.0.1:8080 --v=0 &
+   96  history 
+   97  netstat -lntp
+   98  ps -ef|grep kube
+   99  /opt/bin/kubectl get nodes
+  100  kubectl create -f https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml
+  101  /opt/bin/kubectl create -f https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml
+  102  /opt/bin/kubectl get pods
+  103  /opt/bin/kubectl get namespaces
+  104  /opt/bin/kubectl get pods --namespace=kube-system
+  105  /opt/bin/kubectl describe  pods kubernetes-dashboard-3095304083-d32lh --namespace=kube-system
+  106  /opt/bin/kubectl get pods --namespace=kube-system
+  107  /opt/bin/kubectl delete  pods kubernetes-dashboard-3095304083-d32lh --namespace=kube-system
+  108  /opt/bin/kubectl ge pods --namespace=kube-system
+  109  /opt/bin/kubectl get pods --namespace=kube-system
+  110* /opt/bin/kubectl get rc   --help
+  111  /opt/bin/kubectl get rc --namespace=kube-system
+  112  /opt/bin/kubectl get replicationcontroller --namespace=kube-system
+  113  /opt/bin/kubectl get rc --namespace=kube-system
+  114  /opt/bin/kubectl get -h
+  115  /opt/bin/kubectl get pods --namespace=kube-system
+  116  /opt/bin/kubectl get rc --namespace=kube-system
+  117  /opt/bin/kubectl get rc --namespace=default
+  118  /opt/bin/kubectl get rc 
+  119  /opt/bin/kubectl get svc 
+  120  /opt/bin/kubectl get --namespace=kube-system
+  121  /opt/bin/kubectl get svc --namespace=kube-system
+  122  /opt/bin/kubectl delete svc kubernetes-dashboard  --namespace=kube-system
+  123  /opt/bin/kubectl get svc --namespace=kube-system
+  124  /opt/bin/kubectl get pod --namespace=kube-system
+  125  /opt/bin/kubectl delete pod kubernetes-dashboard-3095304083-xg44y  --namespace=kube-system
+  126  /opt/bin/kubectl get pod --namespace=kube-system
+  127  clear
+  128  history
+root@192:/home/liupeng# 
+
+
+
+
+##########################################################
+
+
+Node for Kubernetes
+
+
+    2  apt-cache search telnet
+    3  apt-get -y install lrzsz curl wget dstat vim 
+    4  apt-get install lrzsz curl wget dstat vim 
+    5  apt-get install lrzsz 
+    6  apt-get update
+    7  apt-get install lrzsz 
+    8  apt-get install tree
+    9  apt-cache clean all
+   10  apt-get clean 
+   11  apt-get install tree
+   12  apt-get update
+   13  apt-get clean 
+   14  cp /etc/apt/{sources.list,sources.list.bak}
+   15  vim /etc/apt/sources.list
+   16  apt-get clean 
+   17  apt-get update
+   18  apt-get -y install lrzsz curl wget dstat vim tree
+   19  apt-get -y install ntpdate
+   20  apt-get -y install lrzsz curl wget dstat vim tree git
+   21  crontab -e
+   22  crontab -l
+   23  cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+   24  /usr/sbin/ntpdate  cn.pool.ntp.org
+   25  ip add
+   26  echo 192.168.15.115 > /etc/hostname 
+   27  hostname 192.168.15.115
+   28  hostname
+   29  exit
+   30  apt-get -y install apt-transport-https ca-certificates
+   31  apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+   32  echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" | sudo tee /etc/apt/sources.list.d/docker.list
+   33  apt-get update
+   34  apt-cache policy docker-engine
+   35  apt-get -y install linux-image-extra-$(uname -r) linux-image-extra-virtual
+   36  apt-get -y install docker-engine
+   37  sudo apt-get -y upgrade docker-engine
+   38  rz
+   39  tar xzf k8s.ubuntu.tar.gz 
+   40  mkdir /opt/bin
+   41  cp ubuntu/binaries/minion/* /opt/bin/
+   42  ifconfig
+   43  ps -ef|grep docker
+   44  systemctl stop docker
+   45  ps -ef|grep docker
+   46  ifconfig
+   47  ip add
+   48  /opt/bin/flanneld --etcd-endpoints="http://192.168.15.114:4001" -iface=ens160 &
+   49  cat /run/flannel/subnet.env
+   50  source /run/flannel/subnet.env
+   51  ifconfig docker0 ${FLANNEL_SUBNET}
+   52  /usr/bin/dockerd --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU} &
+   53  /opt/bin/kubelet --address=0.0.0.0 --port=10250 --api_servers=http://192.168.15.114:8080 --enable_server=true --v=0 &
+   54  /opt/bin/kube-proxy --master=http://192.168.15.114:8080 --v=0 &
+   55  history 
+   56  ls /opt/bin/
+   57  /opt/bin/flanneld --etcd-endpoints="http://192.168.15.114:4001" -iface=ens160 &
+   58  source /run/flannel/subnet.env
+   59  ifconfig docker0 ${FLANNEL_SUBNET}
+   60  /usr/bin/dockerd --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU} &
+   61  ps -ef|grep docker
+   62  kill -9 1003
+   63  ps -ef|grep docker
+   64  rm /var/run/docker.*
+   65  /usr/bin/dockerd --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU} &
+   66  /opt/bin/kubelet --address=0.0.0.0 --port=10250 --api_servers=http://192.168.15.114:8080 --enable_server=true --v=0 &
+   67  history 
+   68  /opt/bin/kube-proxy --master=http://192.168.15.114:8080 --v=0 &
+   69  clear
+   70  history
+
+
+
+
+
+
+
+
+    1  apt-get -y install ntpdate
+    2  apt-get -y install lrzsz curl wget dstat vim 
+    3  apt-get -y install lrzsz curl wget dstat vim tree
+    4  apt-get update
+    5  apt-get -y install ntpdate
+    6  crontab -e
+    7  crontab -l
+    8  /usr/sbin/ntpdate  cn.pool.ntp.org
+    9  cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+   10  date
+   11  /usr/sbin/ntpdate  cn.pool.ntp.org
+   12  ip add
+   13  echo 192.168.15.116 > /etc/hosts
+   14  hostname 192.168.15.116
+   15  hostname
+   16  exit
+   17  cp /etc/apt/{sources.list,sources.list.bak}
+   18  vim /etc/apt/sources.list
+   19  apt-get clean
+   20  apt-get update
+   21  apt-get -y install lrzsz curl wget dstat vim tree
+   22  apt-get -y install lrzsz curl wget dstat vim tree git
+   23  apt-get -y install apt-transport-https ca-certificates
+   24  apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+   25  echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" | sudo tee /etc/apt/sources.list.d/docker.list
+   26  apt-get update
+   27  apt-cache policy docker-engine
+   28  apt-get -y install linux-image-extra-$(uname -r) linux-image-extra-virtual
+   29  apt-get -y install docker-engine
+   30  sudo apt-get -y upgrade docker-engine
+   31  rz
+   32  tar xzf k8s.ubuntu.tar.gz 
+   33  cp ubuntu/binaries/minion/* /opt/bin/
+   34  mkdir /opt/bin
+   35  cp ubuntu/binaries/minion/* /opt/bin/
+   36  ps -ef|grep docker   
+   37  systemctl stop docker
+   38  ps -ef|grep docker   
+   39  ifconfig
+   40  ls
+   41  ls /opt/bin/
+   42  /opt/bin/flanneld --etcd-endpoints="http://192.168.15.114:4001" -iface=ens160 &
+   43  cat /run/flannel/subnet.env
+   44  source /run/flannel/subnet.env
+   45  ifconfig docker0 ${FLANNEL_SUBNET}
+   46  /usr/bin/dockerd --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU} &
+   47  /opt/bin/kubelet --address=0.0.0.0 --port=10250 --api_servers=http://192.168.15.114:8080 --enable_server=true --v=0 &
+   48  /opt/bin/kube-proxy --master=http://192.168.15.114:8080 --v=0 &
+   49  docker ps
+   50  history 
+   51  /opt/bin/kube-proxy --master=http://192.168.15.114:8080 --v=0 &
+   52  ps -elf|grep kube
+   53  kill -9 1455
+   54  ps -elf|grep kube
+   55  history
+   56  cd /var/run/
+   57  ls -ll
+   58  ls
+   59  rm -f docker.pid docker.sock 
+   60  /opt/bin/flanneld --etcd-endpoints="http://192.168.15.114:4001" -iface=ens160 & && source /run/flannel/subnet.env && ifconfig docker0 ${FLANNEL_SUBNET} && /usr/bin/dockerd --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU} & && /opt/bin/kubelet --address=0.0.0.0 --port=10250 --api_servers=http://192.168.15.114:8080 --enable_server=true --v=0 & && /opt/bin/kube-proxy --master=http://192.168.15.114:8080 --v=0 &
+   61  /opt/bin/flanneld --etcd-endpoints="http://192.168.15.114:4001" -iface=ens160 &
+   62  source /run/flannel/subnet.env 
+   63  ifconfig docker0 ${FLANNEL_SUBNET}
+   64  /usr/bin/dockerd --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU} &
+   65  ps -elf|grep docker
+   66  kill -9 1009 1170
+   67  ps -elf|grep docker
+   68  rm -f docker.pid docker.sock 
+   69  /usr/bin/dockerd --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU} &
+   70  /opt/bin/kubelet --address=0.0.0.0 --port=10250 --api_servers=http://192.168.15.114:8080 --enable_server=true --v=0 &
+   71  /opt/bin/kube-proxy --master=http://192.168.15.114:8080 --v=0 &
+   72  hostname
+   73  cat /etc/hostname 
+   74  hostname
+   75  history
+
+
+
+
+
+
